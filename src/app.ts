@@ -25,7 +25,7 @@ class App {
   }
 
   private _configureMiddlewares(): void {
-    this._app.use(cors({ origin: process.env["ORIGIN"], credentials: true }));
+    this._app.use(cors({ origin: process.env["ORIGIN"] || '*' }));
     this._app.use(express.json({ limit: "50mb" }));
     this._app.use(json());
   }
