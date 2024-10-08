@@ -10,12 +10,14 @@ import http from "http";
 
 import { FortuneControllerInstance } from "./controllers/fortune.controller";
 import { HoroscopeControllerInstance } from "./controllers/horoscope.controller";
+import { ChatAIControllerInstance } from "./controllers/chatAI.controller";
 
 class App {
   private _app: Application;
   private _server: http.Server;
   private _fortuneController = FortuneControllerInstance;
   private _horoscopeController = HoroscopeControllerInstance;
+  private _chatAIController = ChatAIControllerInstance;
 
   constructor() {
     this._app = express();
@@ -38,7 +40,11 @@ class App {
   }
 
   private _configureRoutes() {
-    const controllers = [this._fortuneController, this._horoscopeController];
+    const controllers = [
+      this._fortuneController,
+      this._horoscopeController,
+      this._chatAIController,
+    ];
 
     controllers.forEach((controller) => {
       this._app.use("/api/v1", controller.router);
