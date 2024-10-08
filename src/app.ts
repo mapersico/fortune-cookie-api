@@ -9,11 +9,13 @@ import cors from "cors";
 import http from "http";
 
 import { FortuneControllerInstance } from "./controllers/fortune.controller";
+import { HoroscopeControllerInstance } from "./controllers/horoscope.controller";
 
 class App {
   private _app: Application;
   private _server: http.Server;
   private _fortuneController = FortuneControllerInstance;
+  private _horoscopeController = HoroscopeControllerInstance;
 
   constructor() {
     this._app = express();
@@ -25,7 +27,7 @@ class App {
   }
 
   private _configureMiddlewares(): void {
-    this._app.use(cors({ origin: process.env["ORIGIN"] || '*' }));
+    this._app.use(cors({ origin: process.env["ORIGIN"] || "*" }));
     this._app.use(express.json({ limit: "50mb" }));
     this._app.use(json());
   }
@@ -36,7 +38,7 @@ class App {
   }
 
   private _configureRoutes() {
-    const controllers = [this._fortuneController];
+    const controllers = [this._fortuneController, this._horoscopeController];
 
     controllers.forEach((controller) => {
       this._app.use("/api/v1", controller.router);
