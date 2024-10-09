@@ -9,7 +9,7 @@ export interface HoroscopeResponse {
 
 export enum HoroscopeSigns {
   "aries" = "Aries",
-  "aauro" = "Taurus",
+  "tauro" = "Taurus",
   "geminis" = "Gemini",
   "cancer" = "Cancer",
   "leo" = "Leo",
