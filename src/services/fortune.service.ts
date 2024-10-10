@@ -9,7 +9,10 @@ class FortuneService extends BaseService {
     return this._fortuneRepository.getAll();
   }
 
-  public async getRandom() {
+  public async getRandom(plainText: boolean) {
+    const result = await this._fortuneRepository.getRandom();
+
+    if (plainText) return result.content;
     return this._fortuneRepository.getRandom();
   }
 

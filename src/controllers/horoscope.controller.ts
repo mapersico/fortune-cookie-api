@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { BaseController, HoroscopeSigns } from "../bases";
+import { BaseController } from "../bases";
 import { HoroscopeServiceInstance } from "../services/horoscope.service";
 
 class HoroscopeController extends BaseController {
@@ -21,17 +21,12 @@ class HoroscopeController extends BaseController {
 
   private async getHoroscopeBySign(req: Request, res: Response) {
     const { sign, plainText } = req.query;
-    const parsedSign =
-      HoroscopeSigns[
-        sign?.toString().toLowerCase() as keyof typeof HoroscopeSigns
-      ];
+    const result = await this.horoscopeService.getBySign(
+      sign?.toString() || "",
+      !!plainText
+    );
 
-    if (!parsedSign) res.status(400).send("ese signo no existe :(");
-    else {
-      const result = await this.horoscopeService.getBySign(parsedSign);
-      if (plainText) res.status(200).send(result.text);
-      else res.status(200).send(result);
-    }
+    res.status(200).send(result);
   }
 }
 
