@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
+    "generate-schema": "kysely-codegen --out-file src/bases/db.schema.ts",
     "dev": "nodemon index.ts",
+    "postinstall": "npm run generate-schema",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
