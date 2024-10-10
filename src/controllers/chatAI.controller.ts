@@ -11,7 +11,7 @@ class ChatAIController extends BaseController {
     this._initializeRoutes();
   }
 
-  private async _initializeRoutes() {
+  protected override async _initializeRoutes() {
     this.router.get(
       this._route.concat("/get-response-by-prompt"),
       this.asyncHandler(this._getResponseByPrompt.bind(this))
@@ -23,9 +23,11 @@ class ChatAIController extends BaseController {
     const parsedPrompt = prompt?.toString();
 
     if (parsedPrompt) {
-      const result = await this.chatAIService.getTextByPrompt(parsedPrompt);
-      if (plainText) res.status(200).send(result.text());
-      else res.status(200).send(result);
+      const result = await this.chatAIService.getTextByPrompt(
+        parsedPrompt,
+        !!plainText
+      );
+      res.status(200).send(result);
     } else res.status(200).send("algo salio mal :(");
   }
 }

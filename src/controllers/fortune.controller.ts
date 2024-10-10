@@ -12,7 +12,7 @@ class FortuneController extends BaseController {
     this._initializeRoutes();
   }
 
-  private async _initializeRoutes() {
+  protected override async _initializeRoutes() {
     this.router.get(
       this._route.concat("/get-random"),
       this.asyncHandler(this.getRandomFortuneCookie.bind(this))
@@ -25,10 +25,9 @@ class FortuneController extends BaseController {
 
   private async getRandomFortuneCookie(req: Request, res: Response) {
     const { plainText } = req.query;
-    const result = await this.fortuneService.getRandom();
+    const result = await this.fortuneService.getRandom(!!plainText);
 
-    if (plainText) res.status(200).send(result.content);
-    else res.status(200).json(result);
+    res.status(200).send(result);
   }
 
   private async bulkCreateFortuneCookie(req: Request, res: Response) {
