@@ -12,7 +12,7 @@ class HoroscopeController extends BaseController {
     this._initializeRoutes();
   }
 
-  private async _initializeRoutes() {
+  protected override async _initializeRoutes() {
     this.router.get(
       this._route.concat("/get-by-sign"),
       this.asyncHandler(this.getHoroscopeBySign.bind(this))

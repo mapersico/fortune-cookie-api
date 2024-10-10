@@ -11,7 +11,7 @@ class ChatAIController extends BaseController {
     this._initializeRoutes();
   }
 
-  private async _initializeRoutes() {
+  protected override async _initializeRoutes() {
     this.router.get(
       this._route.concat("/get-response-by-prompt"),
       this.asyncHandler(this._getResponseByPrompt.bind(this))
