@@ -20,15 +20,12 @@ class ChatAIController extends BaseController {
 
   private async _getResponseByPrompt(req: Request, res: Response) {
     const { plainText, prompt } = req.query;
-    const parsedPrompt = prompt?.toString();
+    const result = await this.chatAIService.getTextByPrompt(
+      prompt,
+      !!plainText
+    );
 
-    if (parsedPrompt) {
-      const result = await this.chatAIService.getTextByPrompt(
-        parsedPrompt,
-        !!plainText
-      );
-      res.status(200).send(result);
-    } else res.status(200).send("algo salio mal :(");
+    res.status(result.code).send(result.content);
   }
 }
 
