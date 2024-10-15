@@ -7,7 +7,6 @@ export class BaseRepository {
   private readonly dialect = new PostgresDialect({
     pool: new Pool({
       max: 10,
-      ssl: true,
       connectionString: process.env["DATABASE_URL"],
     }),
   });
