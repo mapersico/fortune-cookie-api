@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { BaseController } from "../bases";
+import { BaseController, WithSecret } from "../bases";
 import { FortuneServiceInstance } from "../services/fortune.service";
 
 class FortuneController extends BaseController {
@@ -30,6 +30,7 @@ class FortuneController extends BaseController {
     res.status(200).send(result);
   }
 
+  @WithSecret(process.env["SECRET_KEY"] || "")
   private async bulkCreateFortuneCookie(req: Request, res: Response) {
     await this.fortuneService.bulkCreate(req.body);
     res.status(200).json({ success: true });
